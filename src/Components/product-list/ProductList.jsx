@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setProducts, setLoading } from "../../store/store";
+import ProductCard from "../product-card/ProductCard";
 
 import "./ProductList.css";
 
@@ -135,20 +136,7 @@ const ProductList = () => {
 
             <div className="products">
                 {filteredProducts.map((product) => (
-                    <div key={product.id} className="product-card">
-                        <img src={product.image} alt={product.name} />
-                        <h3>{product.name}</h3>
-                        <p>{product.description}</p>
-                        <div className="price">${product.price}</div>
-                        <button
-                            onClick={() => {
-                                const action = { type: "app/addToCart", payload: product };
-                                dispatch(action);
-                            }}
-                        >
-                            Добавить в корзину
-                        </button>
-                    </div>
+                    <ProductCard key={product.id} product={product} />
                 ))}
             </div>
         </div>
