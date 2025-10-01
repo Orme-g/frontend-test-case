@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "../../store/store";
 
-import "./header.css";
+import "./Header.css";
 
 const Header = () => {
     const dispatch = useDispatch();
