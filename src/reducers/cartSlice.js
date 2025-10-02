@@ -6,6 +6,14 @@ const initialState = {
     totalPrice: 0,
 };
 
+function recalcCart(state) {
+    state.cartCount = state.cartItems.reduce((total, item) => total + item.quantity, 0);
+    state.totalPrice = state.cartItems.reduce(
+        (total, item) => total + item.price * item.quantity,
+        0
+    );
+}
+
 const cartSlice = createSlice({
     name: "cart",
     initialState,
@@ -18,20 +26,12 @@ const cartSlice = createSlice({
             } else {
                 state.cartItems.push({ ...product, quantity: 1 });
             }
-            state.cartCount = state.cartItems.reduce((total, item) => total + item.quantity, 0);
-            state.totalPrice = state.cartItems.reduce(
-                (total, item) => total + item.price * item.quantity,
-                0
-            );
+            recalcCart(state);
         },
 
         removeFromCart: (state, action) => {
             state.cartItems = state.cartItems.filter((item) => item.id !== action.payload);
-            state.cartCount = state.cartItems.reduce((total, item) => total + item.quantity, 0);
-            state.totalPrice = state.cartItems.reduce(
-                (total, item) => total + item.price * item.quantity,
-                0
-            );
+            recalcCart(state);
         },
 
         updateQuantity: (state, action) => {
@@ -40,11 +40,7 @@ const cartSlice = createSlice({
             if (item) {
                 item.quantity = quantity;
             }
-            state.cartCount = state.cartItems.reduce((total, item) => total + item.quantity, 0);
-            state.totalPrice = state.cartItems.reduce(
-                (total, item) => total + item.price * item.quantity,
-                0
-            );
+            recalcCart(state);
         },
         clearCart: (state) => {
             state.cartItems = [];

@@ -10,5 +10,7 @@ Whats done:
 6. Added UI for error while fetching products data.
 7. Removed setProducts, setLoading, setError from store as its controlled in Extra Reducers.
 8. Cleared odd data from store ()
-9. Made 3 separate Store slices for user, products, cart (easy to maintain and read).
+9. Made 3 separate Store slices for user, products, cart (easy to maintain and read). Store.js file is only importing slices.
 10. We have exported Selectors from store - so we use them in components.
+11. Fetching user simulated from Redux CreateAsyncThunk. Only dispatching action in useEffect, all logic in store.
+12. Removed repeated logic in store for quantities calculations.

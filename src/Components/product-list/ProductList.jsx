@@ -18,7 +18,6 @@ const ProductList = () => {
     useEffect(() => {
         dispatch(fetchProducts());
     }, [dispatch]);
-
     const filteredProducts = products
         .filter((product) => {
             const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase());
@@ -42,7 +41,7 @@ const ProductList = () => {
         setSortBy(value);
     };
 
-    if (status === "loading") {
+    if (status === "loading" || status === "idle") {
         return <div className="loading">Загрузка товаров...</div>;
     }
     if (status === "error") {

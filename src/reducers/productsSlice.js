@@ -5,7 +5,7 @@ const initialState = {
     productsList: [],
 };
 
-export const fetchProducts = createAsyncThunk("app/fetch", async () => {
+export const fetchProducts = createAsyncThunk("products/fetch", async () => {
     await new Promise((resolve) => setTimeout(resolve, 1000));
     const result = await fetch("/products.json");
     if (!result.ok) {
@@ -24,7 +24,7 @@ const productSlice = createSlice({
                 state.status = "loading";
             })
             .addCase(fetchProducts.fulfilled, (state, action) => {
-                (state.productsList = action.payload), (state.status = "idle");
+                (state.productsList = action.payload), (state.status = "success");
             })
             .addCase(fetchProducts.rejected, (state) => {
                 state.status = "error";
