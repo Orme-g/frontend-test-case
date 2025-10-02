@@ -11,14 +11,11 @@ const Cart = () => {
     const cart = useSelector((state) => state.app.cart);
     const cartCount = useSelector((state) => state.app.cartCount);
     const totalPrice = useSelector((state) => state.app.totalPrice);
-
     const [isOpen, setIsOpen] = useState(false);
     const [showCheckout, setShowCheckout] = useState(false);
-
     const handleRemoveItem = (id) => {
         dispatch(removeFromCart(id));
     };
-
     const handleUpdateQuantity = (id, quantity) => {
         if (quantity <= 0) {
             handleRemoveItem(id);
@@ -26,7 +23,6 @@ const Cart = () => {
         }
         dispatch(updateQuantity({ id, quantity }));
     };
-
     const handleCheckout = () => {
         setShowCheckout(true);
         setTimeout(() => {
@@ -42,14 +38,12 @@ const Cart = () => {
             <button className="cart-toggle" onClick={() => setIsOpen(!isOpen)}>
                 Корзина ({cartCount})
             </button>
-
             {isOpen && (
                 <div className="cart-dropdown">
                     <div className="cart-header">
                         <h3>Корзина</h3>
                         <button onClick={() => setIsOpen(false)}>×</button>
                     </div>
-
                     <div className="cart-items">
                         {cart.length === 0 ? (
                             <p>Корзина пуста</p>
@@ -64,7 +58,6 @@ const Cart = () => {
                             ))
                         )}
                     </div>
-
                     <div className="cart-footer">
                         <div className="total">Итого: ${totalPrice}</div>
                         <button
