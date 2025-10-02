@@ -7,7 +7,6 @@ import "./Header.css";
 const Header = () => {
     const dispatch = useDispatch();
     const user = useSelector((state) => state.app.user);
-
     useEffect(() => {
         setTimeout(() => {
             dispatch(
@@ -19,7 +18,6 @@ const Header = () => {
             );
         }, 500);
     }, [dispatch]);
-
     return (
         <header className="header">
             <h1>🛒 Интернет-магазин</h1>
