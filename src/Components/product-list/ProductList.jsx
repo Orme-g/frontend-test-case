@@ -1,6 +1,6 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchProducts } from "../../store/store";
+import { fetchProducts, selectProducts, selectStatus } from "../../reducers/productsSlice";
 import Filters from "../filters/Filters";
 import ProductCard from "../product-card/ProductCard";
 
@@ -8,8 +8,8 @@ import "./ProductList.css";
 
 const ProductList = () => {
     const dispatch = useDispatch();
-    const products = useSelector((state) => state.app.products);
-    const loading = useSelector((state) => state.app.loading);
+    const products = useSelector(selectProducts);
+    const status = useSelector(selectStatus);
 
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedCategory, setSelectedCategory] = useState("all");
@@ -31,6 +31,7 @@ const ProductList = () => {
             if (sortBy === "price") return a.price - b.price;
             return 0;
         });
+
     const handleSearchChange = (value) => {
         setSearchTerm(value);
     };
@@ -41,8 +42,11 @@ const ProductList = () => {
         setSortBy(value);
     };
 
-    if (loading) {
+    if (status === "loading") {
         return <div className="loading">Загрузка товаров...</div>;
+    }
+    if (status === "error") {
+        return <div className="error">Ошибка загрузки товаров...</div>;
     }
 
     return (

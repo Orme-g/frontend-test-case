@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { removeFromCart, updateQuantity, clearCart } from "../../store/store";
+import { removeFromCart, updateQuantity, clearCart } from "../../reducers/cartSlice";
+import { selectCartItems, selectCartCount, selectTotalPrice } from "../../reducers/cartSlice";
 
 import CartItem from "../cart-item/CartItem";
 
@@ -8,9 +9,9 @@ import "./Cart.css";
 
 const Cart = () => {
     const dispatch = useDispatch();
-    const cart = useSelector((state) => state.app.cart);
-    const cartCount = useSelector((state) => state.app.cartCount);
-    const totalPrice = useSelector((state) => state.app.totalPrice);
+    const cartItems = useSelector(selectCartItems);
+    const cartCount = useSelector(selectCartCount);
+    const totalPrice = useSelector(selectTotalPrice);
     const [isOpen, setIsOpen] = useState(false);
     const [showCheckout, setShowCheckout] = useState(false);
     const handleRemoveItem = (id) => {
@@ -45,10 +46,10 @@ const Cart = () => {
                         <button onClick={() => setIsOpen(false)}>×</button>
                     </div>
                     <div className="cart-items">
-                        {cart.length === 0 ? (
+                        {cartItems.length === 0 ? (
                             <p>Корзина пуста</p>
                         ) : (
-                            cart.map((item) => (
+                            cartItems.map((item) => (
                                 <CartItem
                                     key={item.id}
                                     item={item}
@@ -63,7 +64,7 @@ const Cart = () => {
                         <button
                             className="checkout-btn"
                             onClick={handleCheckout}
-                            disabled={cart.length === 0 || showCheckout}
+                            disabled={cartItems.length === 0 || showCheckout}
                         >
                             {showCheckout ? "Оформляем..." : "Оформить заказ"}
                         </button>

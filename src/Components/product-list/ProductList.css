@@ -16,6 +16,12 @@
     font-size: 1.2rem;
     color: #666;
 }
+.error {
+    text-align: center;
+    padding: 2rem;
+    font-size: 1.2rem;
+    color: #d13c3c;
+}
 
 @media (max-width: 768px) {
     .products {

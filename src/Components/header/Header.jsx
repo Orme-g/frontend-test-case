@@ -1,12 +1,13 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setUser } from "../../store/store";
+import { selectUser } from "../../reducers/userSlice";
+import { setUser } from "../../reducers/userSlice";
 
 import "./Header.css";
 
 const Header = () => {
     const dispatch = useDispatch();
-    const user = useSelector((state) => state.app.user);
+    const user = useSelector(selectUser);
     useEffect(() => {
         setTimeout(() => {
             dispatch(
