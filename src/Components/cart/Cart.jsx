@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { removeFromCart, updateQuantity, clearCart } from "../../store/store";
 
 import CartItem from "../cart-item/CartItem";
 
@@ -15,7 +16,7 @@ const Cart = () => {
     const [showCheckout, setShowCheckout] = useState(false);
 
     const handleRemoveItem = (id) => {
-        dispatch({ type: "app/removeFromCart", payload: id });
+        dispatch(removeFromCart(id));
     };
 
     const handleUpdateQuantity = (id, quantity) => {
@@ -23,14 +24,14 @@ const Cart = () => {
             handleRemoveItem(id);
             return;
         }
-        dispatch({ type: "app/updateQuantity", payload: { id, quantity } });
+        dispatch(updateQuantity({ id, quantity }));
     };
 
     const handleCheckout = () => {
         setShowCheckout(true);
         setTimeout(() => {
             alert("Заказ оформлен!");
-            dispatch({ type: "app/clearCart" });
+            dispatch(clearCart());
             setShowCheckout(false);
             setIsOpen(false);
         }, 1000);

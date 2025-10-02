@@ -1,4 +1,5 @@
 import { useDispatch } from "react-redux";
+import { addToCart } from "../../store/store";
 import "./ProductCard.css";
 const ProductCard = ({ product }) => {
     const dispatch = useDispatch();
@@ -11,8 +12,7 @@ const ProductCard = ({ product }) => {
             <div className="price">${price}</div>
             <button
                 onClick={() => {
-                    const action = { type: "app/addToCart", payload: product };
-                    dispatch(action);
+                    dispatch(addToCart(product));
                 }}
             >
                 Добавить в корзину
