@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setProducts, setLoading } from "../../store/store";
+import { fetchProducts } from "../../store/store";
 import Filters from "../filters/Filters";
 import ProductCard from "../product-card/ProductCard";
 
@@ -16,15 +16,7 @@ const ProductList = () => {
     const [sortBy, setSortBy] = useState("name");
 
     useEffect(() => {
-        dispatch(setLoading(true));
-        setTimeout(() => {
-            fetch("/products.json")
-                .then((result) => result.json())
-                .then((products) => {
-                    dispatch(setProducts(products));
-                    dispatch(setLoading(false));
-                });
-        }, 1000);
+        dispatch(fetchProducts());
     }, [dispatch]);
 
     const filteredProducts = products
